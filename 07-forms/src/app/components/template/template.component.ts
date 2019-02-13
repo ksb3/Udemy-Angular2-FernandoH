@@ -4,15 +4,34 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-template',
   templateUrl: './template.component.html',
-  styles: []
+  styles: [`
+    .ng-invalid.ng-touched:not(form) {
+      border:1px solid red;
+    }
+  `]
 })
 export class TemplateComponent implements OnInit {
 
   usuario: Object = {
-    nombre: 'xx',
-    apellido: 'xxxx',
-    correo: 'email@email.com',
+    nombre: null,
+    apellido: null,
+    correo: null,
+    pais: null,
+    sexo: "Hombre",
+    acepta: false,
   };
+
+  paises = [{
+    codigo: "CRI",
+    nombre: "Costa Rica"
+  },
+  {
+    codigo: "EH",
+    nombre: "Euskal Herria"
+  },
+];
+
+sexos: string [] = ["Hombre", "Mujer"];
 
   constructor() { }
 
@@ -20,9 +39,9 @@ export class TemplateComponent implements OnInit {
   }
 
   guardar(forma: NgForm) {
-    console.log('Formulario enviado');
     console.log('NgForm' + forma);
-    console.log(forma.value);
+    console.log('Valor de forma:' + forma.value);
+    console.log('Usuario' + this.usuario);
   }
 
 }
