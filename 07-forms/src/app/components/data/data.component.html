@@ -1,18 +1,27 @@
 <h4>Formularios <small>data</small></h4>
 <hr>
+
 <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
-  <div>
+  <div formGroupName="nombrecompleto">
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
         <input
+              [ngClass]="{'is-invalid':(forma.get('nombrecompleto.nombre').invalid)}"
+
               formControlName="nombre"
               class="form-control"
                type="text"
                placeholder="Nombre">
+               <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class="form-control-feedback">
+                  El nombre es necesario
+               </div>
+               <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class="form-control-feedback">
+                Por lo menos ha de tener 3 caracteres
+              </div>
       </div>
     </div>
 
@@ -41,6 +50,26 @@
              placeholder="Correo electrónico">
     </div>
   </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8" formArrayName="pasatiempos">
+
+      <input *ngFor="let pasatiempo of forma.control['pasatiempos'].controls; let i = index"
+             class="form-control"
+             type="text"
+             [formControlName]="i">
+    </div>
+    <button
+      (click)="agregarPasatiempo()"
+      type="button" class="btn btn-primary">
+      Nuevo
+    </button>
+  </div>
+
+
+
 
 
 
